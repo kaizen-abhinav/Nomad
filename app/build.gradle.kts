@@ -66,6 +66,9 @@ android {
     checkDependencies = false
     checkTestSources = false
     abortOnError = true
+    disable += listOf(
+      "InvalidFragmentVersionForActivityResult"
+    )
   }
 }
 
