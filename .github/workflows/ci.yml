@@ -21,10 +21,19 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Cache Robolectric pre-instrumented JARs
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository/org/robolectric
+          key: ${{ runner.os }}-robolectric-${{ hashFiles('**/libs.versions.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-robolectric-
+
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '9.3.1'
+          cache-read-only: ${{ github.ref != 'refs/heads/main' && github.event_name != 'push' }}
 
       - name: Generate Gradle Wrapper & Setup Environment
         run: |
@@ -42,14 +51,8 @@ jobs:
               -dname "CN=Android Debug,O=Android,C=US"
           fi
 
-      - name: Lint
-        run: ./gradlew lint --no-daemon
-
-      - name: Run unit tests
-        run: ./gradlew testDebugUnitTest --no-daemon
-
-      - name: Build debug APK
-        run: ./gradlew assembleDebug --no-daemon
+      - name: Build, Lint & Run Unit Tests
+        run: ./gradlew lintDebug testDebugUnitTest assembleDebug --build-cache --parallel
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
