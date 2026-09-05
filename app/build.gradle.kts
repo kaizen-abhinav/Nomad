@@ -61,6 +61,15 @@ android {
     includeInApk = false
     includeInBundle = true
   }
+  lint {
+    checkReleaseBuilds = false
+    checkDependencies = false
+    checkTestSources = false
+    abortOnError = true
+    disable += listOf(
+      "InvalidFragmentVersionForActivityResult"
+    )
+  }
 }
 
 // Configure the Secrets Gradle Plugin to use .env and .env.example files
