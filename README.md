@@ -18,6 +18,7 @@
 
 By leveraging **Bluetooth Low Energy (BLE)** opportunistic mesh synchronization, physical **NFC Digital Dead Drops**, and an **air-gapped APK self-replication beamer**, Nomad allows survivor nodes to coordinate, broadcast critical emergency hazards, and barter essential survival items without touching the internet.
 
+To test this [download](https://drive.google.com/file/d/1QUEcO_3vergmakDcL_xCbeBrIm6K_9P_/view?usp=drive_link)
 ---
 
 ## Core Capabilities
